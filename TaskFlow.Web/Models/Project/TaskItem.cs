@@ -1,4 +1,6 @@
-﻿public class TaskItem
+﻿using TaskFlow.Web.Models.Common;
+
+public class TaskItem : BaseEntity
 {
     public int Id { get; set; }
 
