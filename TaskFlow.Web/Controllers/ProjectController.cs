@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TaskFlow.Web.Data;
 using TaskFlow.Web.ViewModels.Project;
+using TaskFlow.Web.Models.Project;
 
 namespace TaskFlow.Web.Controllers
 {
@@ -21,7 +22,8 @@ namespace TaskFlow.Web.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            ProjectCreateViewModel model = new ProjectCreateViewModel();
+            return View(model);
         }
 
         [HttpPost]
@@ -37,10 +39,6 @@ namespace TaskFlow.Web.Controllers
                 Description = model.Description,
                 StartDate = model.StartDate,
                 EndDate = model.EndDate,
-                CreatedBy = "Admin", // Replace with actual user
-                CreatedDate = DateTime.Now,
-                ModifiedBy = "Admin", // Replace with actual user
-                ModifiedDate = DateTime.Now
             };
 
             _context.Projects.Add(project);
