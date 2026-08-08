@@ -62,12 +62,13 @@ namespace TaskFlow.Web.Services
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<ProjectEditViewModel?> UpdateProjectAsync(ProjectEditViewModel model)
+        public async Task<bool> UpdateAsync(ProjectEditViewModel model)
         {
             var project = await _context.Projects.FindAsync(model.Id);
             if (project == null)
             {
-                return null;
+                return false;
+
             }
             project.ProjectName = model.ProjectName;
             project.Description = model.Description;
@@ -76,7 +77,7 @@ namespace TaskFlow.Web.Services
             project.StartDate = model.StartDate;
             project.EndDate = model.EndDate;
             await _context.SaveChangesAsync();
-            return model;
+            return true;
         }
     }
 }

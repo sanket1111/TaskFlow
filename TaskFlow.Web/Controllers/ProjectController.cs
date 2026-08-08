@@ -72,7 +72,7 @@ namespace TaskFlow.Web.Controllers
             {
                 return View(model);
             }
-            var updatedProject = await _projectService.UpdateProjectAsync(model);
+            var updatedProject = await _projectService.UpdateAsync(model);
             if (updatedProject == null)
             {
                 return NotFound();
