@@ -22,7 +22,9 @@ namespace TaskFlow.Web.Services
                 ProjectName = model.ProjectName,
                 Description = model.Description,
                 StartDate = model.StartDate,
-                EndDate = model.EndDate
+                EndDate = model.EndDate,
+                Status = model.Status,
+                Priority =model.Priority                
             };
             _context.Projects.Add(project);
 
@@ -58,6 +60,23 @@ namespace TaskFlow.Web.Services
                     EndDate = p.EndDate
                 })
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<ProjectEditViewModel?> UpdateProjectAsync(ProjectEditViewModel model)
+        {
+            var project = await _context.Projects.FindAsync(model.Id);
+            if (project == null)
+            {
+                return null;
+            }
+            project.ProjectName = model.ProjectName;
+            project.Description = model.Description;
+            project.Status = model.Status;
+            project.Priority = model.Priority;
+            project.StartDate = model.StartDate;
+            project.EndDate = model.EndDate;
+            await _context.SaveChangesAsync();
+            return model;
         }
     }
 }

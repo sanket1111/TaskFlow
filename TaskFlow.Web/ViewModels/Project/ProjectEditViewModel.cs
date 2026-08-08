@@ -6,9 +6,9 @@ namespace TaskFlow.Web.ViewModels.Project
     {
         public int Id { get; set; }
         public string ProjectName { get; set; } = string.Empty;
-        public string Description { get; set; }
-        public ProjectStatus Status { get; set; }
-        public ProjectPriority Priority { get; set; }
+        public string Description { get; set; } =string.Empty;
+        public ProjectStatus Status { get; set; } = ProjectStatus.New;
+        public ProjectPriority Priority { get; set; } = ProjectPriority.Medium;
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
     }

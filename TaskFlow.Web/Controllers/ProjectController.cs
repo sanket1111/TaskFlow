@@ -53,6 +53,7 @@ namespace TaskFlow.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             var model = await _projectService.GetByIdAsync(id);
@@ -62,6 +63,21 @@ namespace TaskFlow.Web.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProjectEditViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var updatedProject = await _projectService.UpdateProjectAsync(model);
+            if (updatedProject == null)
+            {
+                return NotFound();
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model TaskFlow.Web.ViewModels.Project.ProjectCreateViewModel
+﻿@using TaskFlow.Web.Models.Enum
+@model TaskFlow.Web.ViewModels.Project.ProjectCreateViewModel
 
 <h2>Create Project</h2>
 
@@ -12,6 +13,22 @@
     <div class="mb-3">
         <label asp-for="Description"></label>
         <textarea asp-for="Description" class="form-control"></textarea>
+    </div>    
+    <div class="mb-3">
+        <label asp-for="Status" class="form-label"></label>
+
+        <select asp-for="Status"
+                asp-items="Html.GetEnumSelectList<ProjectStatus>()"
+                class="form-select">
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Priority" class="form-label"></label>
+
+        <select asp-for="Priority"
+                asp-items="Html.GetEnumSelectList<ProjectPriority>()"
+                class="form-select">
+        </select>
     </div>
 
     <div class="mb-3">
