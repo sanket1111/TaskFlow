@@ -1,0 +1,33 @@
+﻿@model IEnumerable<TaskFlow.Web.ViewModels.Project.ProjectListViewModel>
+
+
+<h1>Project List</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Project Name</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var project in Model)
+        {
+            <tr>
+                <td>@project.ProjectName</td>
+                <td>@project.Status</td>
+                <td>@project.Priority</td>
+                <td>@project.StartDate.ToString("dd-MMM")</td>
+                <td>@project.EndDate.ToString("dd-MMM")</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = project.Id })" class="btn btn-primary">Edit</a>
+                    <a href="@Url.Action("Delete", new { id = project.Id })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>    

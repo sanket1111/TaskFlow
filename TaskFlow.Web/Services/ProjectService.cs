@@ -1,0 +1,63 @@
+﻿using Microsoft.EntityFrameworkCore;
+using TaskFlow.Web.Data;
+using TaskFlow.Web.Models.Project;
+using TaskFlow.Web.Services.Interfaces;
+using TaskFlow.Web.ViewModels.Project;
+
+namespace TaskFlow.Web.Services
+{
+    public class ProjectService : IProjectService
+    {
+        private readonly AppDbContext _context;
+
+        public ProjectService(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task CreateAsync(ProjectCreateViewModel model)
+        {
+            var project = new Project
+            {
+                ProjectName = model.ProjectName,
+                Description = model.Description,
+                StartDate = model.StartDate,
+                EndDate = model.EndDate
+            };
+            _context.Projects.Add(project);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<ProjectListViewModel>> GetAllAsync()
+        {
+            return await _context.Projects.Select(p => new ProjectListViewModel
+            {
+                Id = p.Id,
+                ProjectName = p.ProjectName,
+                Status = p.Status,
+                Priority = p.Priority,
+                StartDate = p.StartDate,
+                EndDate = p.EndDate
+            }).ToListAsync();
+
+        }
+
+        public Task<ProjectEditViewModel?> GetByIdAsync(int id)
+        {
+            return _context.Projects
+                .Where(p => p.Id == id)
+                .Select(p => new ProjectEditViewModel
+                {
+                    Id = p.Id,
+                    ProjectName = p.ProjectName,
+                    Description = p.Description,
+                    Status = p.Status,
+                    Priority = p.Priority,
+                    StartDate = p.StartDate,
+                    EndDate = p.EndDate
+                })
+                .FirstOrDefaultAsync();
+        }
+    }
+}

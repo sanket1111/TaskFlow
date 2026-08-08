@@ -11,6 +11,15 @@ namespace TaskFlow.Web.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // Configure enum string conversion for columns stored as NVARCHAR in database
+            modelBuilder.Entity<Project>()
+                .Property(p => p.Status)
+                .HasConversion<string>();
+
+            modelBuilder.Entity<Project>()
+                .Property(p => p.Priority)
+                .HasConversion<string>();
+
             // Ensure EF Core explicitly recognizes the CLR entity types and their relationship
             modelBuilder.Entity<Project>();
             modelBuilder.Entity<TaskItem>();
@@ -27,6 +36,18 @@ namespace TaskFlow.Web.Data
 
         public DbSet<TaskItem> TaskItems { get; set; } = null!;
         public override int SaveChanges()
+        {
+            UpdateAuditFields();
+            return base.SaveChanges();
+        }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            UpdateAuditFields();
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        public void UpdateAuditFields()
         {
             var entries = ChangeTracker.Entries<BaseEntity>();
 
@@ -50,8 +71,6 @@ namespace TaskFlow.Web.Data
                     entry.Entity.ModifiedBy = "System";
                 }
             }
-            return base.SaveChanges();
         }
-
     }
 }
