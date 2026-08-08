@@ -24,11 +24,31 @@ namespace TaskFlow.Web.Services
                 StartDate = model.StartDate,
                 EndDate = model.EndDate,
                 Status = model.Status,
-                Priority =model.Priority                
+                Priority = model.Priority
             };
             _context.Projects.Add(project);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var project = await _context.Projects
+                                  .Include(item => item.TaskItems)
+                                  .FirstOrDefaultAsync(p => p.Id == id);
+            if (project == null)
+                return false;
+
+            project.IsActive = false;
+
+            foreach (var item in project.TaskItems)
+            {
+                item.IsActive = false;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return true;
         }
 
         public async Task<List<ProjectListViewModel>> GetAllAsync()
@@ -79,5 +99,7 @@ namespace TaskFlow.Web.Services
             await _context.SaveChangesAsync();
             return true;
         }
+
+
     }
 }

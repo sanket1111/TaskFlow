@@ -8,5 +8,7 @@ namespace TaskFlow.Web.Services.Interfaces
         Task<List<ProjectListViewModel>> GetAllAsync();
         Task<ProjectEditViewModel?> GetByIdAsync(int id);
         Task<bool> UpdateAsync(ProjectEditViewModel model);
+        Task<bool> DeleteAsync(int id);
+
     }
 }

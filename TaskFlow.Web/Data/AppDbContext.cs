@@ -20,15 +20,17 @@ namespace TaskFlow.Web.Data
                 .Property(p => p.Priority)
                 .HasConversion<string>();
 
-            // Ensure EF Core explicitly recognizes the CLR entity types and their relationship
-            modelBuilder.Entity<Project>();
-            modelBuilder.Entity<TaskItem>();
-
             modelBuilder.Entity<TaskItem>()
                 .HasOne(t => t.Project)
                 .WithMany(p => p.TaskItems)
                 .HasForeignKey(t => t.ProjectId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Project>()
+                .HasQueryFilter(p => p.IsActive);
+
+            modelBuilder.Entity<TaskItem>()
+                .HasQueryFilter(t=>t.IsActive);
 
             base.OnModelCreating(modelBuilder);
         }

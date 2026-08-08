@@ -72,8 +72,19 @@ namespace TaskFlow.Web.Controllers
             {
                 return View(model);
             }
-            var updatedProject = await _projectService.UpdateAsync(model);
-            if (updatedProject == null)
+            bool IsUpdated = await _projectService.UpdateAsync(model);
+            if (!IsUpdated)
+            {
+                return NotFound();
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            bool IsDeleted = await _projectService.DeleteAsync(id);
+            if (!IsDeleted)
             {
                 return NotFound();
             }

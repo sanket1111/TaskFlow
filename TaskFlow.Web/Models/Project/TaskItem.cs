@@ -19,5 +19,6 @@ namespace TaskFlow.Web.Models.Project
         public int ProjectId { get; set; }
 
         public Project Project { get; set; } = null!;
+        public bool IsActive { get; set; }
     }
 }
