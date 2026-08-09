@@ -11,5 +11,6 @@ namespace TaskFlow.Web.ViewModels.Task
         public TaskStatus Status { get; set; }
         public TaskPriority Priority { get; set; }
         public DateTime DueDate { get; set; }
+        public int ProjectId { get; set; }
     }
 }

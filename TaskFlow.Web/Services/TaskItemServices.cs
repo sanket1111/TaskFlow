@@ -41,7 +41,8 @@ namespace TaskFlow.Web.Services
                     Description = t.Description,
                     Status = t.Status,
                     Priority = t.Priority,
-                    DueDate = t.DueDate
+                    DueDate = t.DueDate,
+                    ProjectId = t.ProjectId
                 }).ToListAsync();
         }
 
@@ -56,7 +57,8 @@ namespace TaskFlow.Web.Services
                     Description = t.Description,
                     Status = t.Status,
                     Priority = t.Priority,
-                    DueDate = t.DueDate
+                    DueDate = t.DueDate,
+                    ProjectId = t.ProjectId
                 }).FirstOrDefaultAsync();   
         }
 
@@ -71,7 +73,7 @@ namespace TaskFlow.Web.Services
                 task.Status = model.Status;
                 task.Priority = model.Priority;
                 task.DueDate = model.DueDate;
-                task.ProjectId = model.Id;
+                task.Id = model.Id;
 
                 _context.TaskItems.Update(task);
 

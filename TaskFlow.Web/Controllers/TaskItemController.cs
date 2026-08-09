@@ -64,7 +64,7 @@ namespace TaskFlow.Web.Controllers
             {
                 return NotFound();
             }
-            return RedirectToAction("Details", "Project", new { id = model.Id });
+            return RedirectToAction("Details", "Project", new { id = model.ProjectId });
         } 
     }
 }
