@@ -25,6 +25,14 @@
         <dt class="col-sm-2">End Date</dt>
         <dd class="col-sm-10">@Model.EndDate.ToShortDateString()</dd>
     </dl>
+    <dl>
+        <a asp-controller="TaskItem"
+           asp-action="Create"
+           asp-route-projectId="@Model.Id"
+           class="btn btn-primary">
+            Create Task
+        </a>
+    </dl>
 </div>
 
 <h3>Tasks</h3>

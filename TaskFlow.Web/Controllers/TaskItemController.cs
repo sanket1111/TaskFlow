@@ -22,8 +22,10 @@ namespace TaskFlow.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create(int ProjectId)
         {
-            TaskCreateViewModel model = new TaskCreateViewModel();
-            model.ProjectId = ProjectId;
+            TaskCreateViewModel model = new TaskCreateViewModel()
+            {
+                ProjectId = ProjectId
+            };            
             return View(model);
         }
 

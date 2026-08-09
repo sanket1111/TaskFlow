@@ -89,6 +89,7 @@ namespace TaskFlow.Web.Services
                                          .Where(p => p.Id == id)
                                          .Select(p => new ProjectDetailsViewModel
                                          {
+                                             Id=p.Id,
                                              ProjectName = p.ProjectName,
                                              Description = p.Description,
                                              Status = p.Status,
