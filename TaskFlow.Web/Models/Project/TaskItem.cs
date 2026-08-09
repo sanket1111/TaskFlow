@@ -1,4 +1,5 @@
 ﻿using TaskFlow.Web.Models.Common;
+using TaskFlow.Web.Models.Enum;
 
 namespace TaskFlow.Web.Models.Project
 {
@@ -10,9 +11,9 @@ namespace TaskFlow.Web.Models.Project
 
         public string Description { get; set; } = string.Empty;
 
-        public string Status { get; set; } = string.Empty;
+        public Enum.TaskStatus Status { get; set; }
 
-        public string Priority { get; set; } = string.Empty;
+        public TaskPriority Priority { get; set; }
 
         public DateTime DueDate { get; set; }
 

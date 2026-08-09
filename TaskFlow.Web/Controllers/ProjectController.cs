@@ -8,7 +8,7 @@ using TaskFlow.Web.Services.Interfaces;
 namespace TaskFlow.Web.Controllers
 {
     public class ProjectController : Controller
-    {        
+    {
         private readonly IProjectService _projectService;
 
         public ProjectController(IProjectService projectService)
@@ -44,7 +44,8 @@ namespace TaskFlow.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProjectCreateViewModel model)
         {
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 return View(model);
             }
 
@@ -89,6 +90,17 @@ namespace TaskFlow.Web.Controllers
                 return NotFound();
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var model = await _projectService.GetDetailsAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
         }
     }
 }

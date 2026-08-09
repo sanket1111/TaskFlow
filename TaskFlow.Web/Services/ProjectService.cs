@@ -3,6 +3,7 @@ using TaskFlow.Web.Data;
 using TaskFlow.Web.Models.Project;
 using TaskFlow.Web.Services.Interfaces;
 using TaskFlow.Web.ViewModels.Project;
+using TaskFlow.Web.ViewModels.Task;
 
 namespace TaskFlow.Web.Services
 {
@@ -80,6 +81,31 @@ namespace TaskFlow.Web.Services
                     EndDate = p.EndDate
                 })
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<ProjectDetailsViewModel?> GetDetailsAsync(int id)
+        {
+            var projectDeatils =  _context.Projects
+                                         .Where(p => p.Id == id)
+                                         .Select(p => new ProjectDetailsViewModel
+                                         {
+                                             ProjectName = p.ProjectName,
+                                             Description = p.Description,
+                                             Status = p.Status,
+                                             Priority = p.Priority,
+                                             StartDate = p.StartDate,
+                                             EndDate = p.EndDate,
+                                             TaskItems = p.TaskItems.Select(t => new TaskListViewModel
+                                             {
+                                                 Id = t.Id,
+                                                 TaskTitle = t.TaskTitle,
+                                                 Description = t.Description,
+                                                 Status = t.Status,
+                                                 Priority = t.Priority,
+                                                 DueDate = t.DueDate,                                                 
+                                             }).ToList()
+                                         });
+            return await projectDeatils.FirstOrDefaultAsync();
         }
 
         public async Task<bool> UpdateAsync(ProjectEditViewModel model)
