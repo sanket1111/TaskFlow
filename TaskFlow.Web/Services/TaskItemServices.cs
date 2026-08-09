@@ -5,11 +5,11 @@ using TaskFlow.Web.ViewModels.Task;
 
 namespace TaskFlow.Web.Services
 {
-    public class TaskServices : ITaskItemServices
+    public class TaskItemServices : ITaskItemServices
     {
         private readonly AppDbContext _context;
 
-        public TaskServices(AppDbContext context)
+        public TaskItemServices(AppDbContext context)
         {
             _context = context;
         }

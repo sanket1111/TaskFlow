@@ -39,6 +39,12 @@
                        class="btn btn-info">
                         Details
                     </a>
+                    <a asp-controller="TaskItem"
+                       asp-action="Create"
+                       asp-route-projectId="@project.Id"
+                       class="btn btn-primary">
+                        Create Task
+                    </a>
                 </td>
             </tr>
         }

@@ -20,20 +20,21 @@ namespace TaskFlow.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create(int ProjectId)
         {
             TaskCreateViewModel model = new TaskCreateViewModel();
+            model.ProjectId = ProjectId;
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Create(TaskCreateViewModel model)
+        public async Task<IActionResult> Create(TaskCreateViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-            _taskItemServices.CreateAsync(model);
+            await _taskItemServices.CreateAsync(model);
 
             return RedirectToAction("Details", "Project", new { id = model.ProjectId });
         }

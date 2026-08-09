@@ -13,7 +13,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IProjectService, ProjectService>();
 
-builder.Services.AddScoped<ITaskItemServices, TaskServices>();
+builder.Services.AddScoped<ITaskItemServices, TaskItemServices>();
 
 var app = builder.Build();
 
