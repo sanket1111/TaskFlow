@@ -1,5 +1,6 @@
 ﻿using TaskFlow.Web.Models.Common;
 using TaskFlow.Web.Models.Enum;
+using TaskStatus = TaskFlow.Web.Models.Enum.TaskStatus;
 
 namespace TaskFlow.Web.Models.Project
 {
@@ -11,7 +12,7 @@ namespace TaskFlow.Web.Models.Project
 
         public string Description { get; set; } = string.Empty;
 
-        public Enum.TaskStatus Status { get; set; }
+        public TaskStatus Status { get; set; }
 
         public TaskPriority Priority { get; set; }
 
@@ -20,6 +21,6 @@ namespace TaskFlow.Web.Models.Project
         public int ProjectId { get; set; }
 
         public Project Project { get; set; } = null!;
-        public bool IsActive { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 }
