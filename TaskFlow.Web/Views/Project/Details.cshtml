@@ -64,7 +64,16 @@
                            class="btn btn-primary">
                             Edit Task
                         </a>
-                    </td>
+                        <form asp-controller="TaskItem" asp-action="Delete"
+                              asp-route-id="@task.Id"
+                              method="post"
+                              style="display:inline">
+
+                            <button type="submit" class="btn btn-danger">
+                                Delete
+                            </button>
+                        </form>
+                    </td>                    
                 </tr>
             }
         </tbody>

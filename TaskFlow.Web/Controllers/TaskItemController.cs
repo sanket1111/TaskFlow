@@ -66,5 +66,21 @@ namespace TaskFlow.Web.Controllers
             }
             return RedirectToAction("Details", "Project", new { id = model.ProjectId });
         } 
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var model = await _taskItemServices.GetByIdAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            var deleted = await _taskItemServices.DeleteAsync(id);
+            if (!deleted)
+            {
+                return NotFound();
+            }
+            return RedirectToAction("Details", "Project", new { id = model.ProjectId });
+        }
     }
 }

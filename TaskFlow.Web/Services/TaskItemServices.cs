@@ -31,6 +31,22 @@ namespace TaskFlow.Web.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<bool> DeleteAsync(int id)
+        {
+            var task = await _context.TaskItems
+                                     .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (task == null)
+            {
+                return false;
+            }
+            task.IsActive = false;
+
+            await _context.SaveChangesAsync();
+
+            return true;
+        }
+
         public async Task<List<TaskEditViewModel>> GetAllAsync()
         {            
             return await _context.TaskItems
