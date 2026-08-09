@@ -57,6 +57,14 @@
                     <td>@task.Status</td>
                     <td>@task.Priority</td>
                     <td>@task.DueDate.ToShortDateString()</td>
+                    <td>
+                        <a asp-controller="TaskItem"
+                           asp-action="Edit"
+                           asp-route-id="@task.Id"
+                           class="btn btn-primary">
+                            Edit Task
+                        </a>
+                    </td>
                 </tr>
             }
         </tbody>

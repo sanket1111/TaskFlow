@@ -1,0 +1,36 @@
+﻿@model TaskFlow.Web.ViewModels.Task.TaskEditViewModel
+
+<h2>Edit Task</h2>
+
+<form asp-action="Edit" method="post">
+    <div class="mb-3">
+        <label asp-for="TaskTitle"></label>
+        <input asp-for="TaskTitle" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Status" class="form-label"></label>
+        <select asp-for="Status"
+                asp-items="Html.GetEnumSelectList<TaskFlow.Web.Models.Enum.TaskStatus>()"
+                class="form-select">
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Priority" class="form-label"></label>
+        <select asp-for="Priority"
+                asp-items="Html.GetEnumSelectList<TaskFlow.Web.Models.Enum.TaskPriority>()"
+                class="form-select">
+        </select>
+    </div>
+    <div class="mb-3">
+        <label asp-for="DueDate"></label>
+        <input asp-for="DueDate" type="date" class="form-control" />
+    </div>
+    <input asp-for="Id" type="hidden" />
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary">Update Task</button>
+    </div>
+</form> 

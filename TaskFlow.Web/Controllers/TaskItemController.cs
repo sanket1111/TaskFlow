@@ -40,5 +40,31 @@ namespace TaskFlow.Web.Controllers
 
             return RedirectToAction("Details", "Project", new { id = model.ProjectId });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var model = await _taskItemServices.GetByIdAsync(id);
+            if (model == null)
+            {
+                return NotFound();
+            }
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(TaskEditViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var updated = await _taskItemServices.UpdateAsync(model);
+            if (!updated)
+            {
+                return NotFound();
+            }
+            return RedirectToAction("Details", "Project", new { id = model.Id });
+        } 
     }
 }
