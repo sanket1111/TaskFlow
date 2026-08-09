@@ -64,23 +64,23 @@ namespace TaskFlow.Web.Services
 
         public async Task<bool> UpdateAsync(TaskEditViewModel model)
         {
-            var task = _context.TaskItems.FirstOrDefault(t => t.Id == model.Id);
+            var task = await _context.TaskItems
+                .FirstOrDefaultAsync(t => t.Id == model.Id);
 
-            if (task != null)
+            if (task == null)
             {
-                task.TaskTitle = model.TaskTitle;
-                task.Description = model.Description;
-                task.Status = model.Status;
-                task.Priority = model.Priority;
-                task.DueDate = model.DueDate;
-                task.Id = model.Id;
-
-                _context.TaskItems.Update(task);
-
-                await _context.SaveChangesAsync();
-                return true;
+                return false;
             }
-            return false;
+
+            task.TaskTitle = model.TaskTitle;
+            task.Description = model.Description;
+            task.Status = model.Status;
+            task.Priority = model.Priority;
+            task.DueDate = model.DueDate;
+
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }
