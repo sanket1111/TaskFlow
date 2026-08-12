@@ -9,7 +9,7 @@ namespace TaskFlow.Web.ViewModels.Project
         public ProjectStatus Status { get; set; }
         public ProjectPriority Priority { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string Edit { get; set; } = "Edit";
        public string Delete { get; set; } = "Delete";
     }

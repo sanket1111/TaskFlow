@@ -22,7 +22,7 @@
                 <td>@project.Status</td>
                 <td>@project.Priority</td>
                 <td>@project.StartDate.ToString("dd-MMM")</td>
-                <td>@project.EndDate.ToString("dd-MMM")</td>
+                <td>@project.EndDate?.ToString("dd-MMM")</td>
                 <td>
                     <a href="@Url.Action("Edit", new { id = project.Id })" class="btn btn-primary">Edit</a>
                     <form asp-action="Delete"

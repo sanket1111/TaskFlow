@@ -10,6 +10,6 @@ namespace TaskFlow.Web.ViewModels.Project
         public ProjectStatus Status { get; set; } = ProjectStatus.New;
         public ProjectPriority Priority { get; set; } = ProjectPriority.Medium;
         public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }
