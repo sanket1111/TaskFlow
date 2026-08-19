@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TaskFlow.Web.ViewModels.Project.ProjectListViewModel>
+﻿@model ProjectListPageViewModel
 
 
 <h1>Project List</h1>
@@ -6,38 +6,23 @@
 <form asp-action="Index" method="get">
     <div class="row">
         <div class="col-md-3">
-            <input type="text"
-                   name="searchTerm"
-                   value="@Context.Request.Query["searchTerm"]"
+            <input asp-for="Filter.SearchTerm"
                    placeholder="Search projects..."
                    class="form-control" />
         </div>
 
         <div class="col-md-3">
-            <select name="priority"
+            <select asp-for="Filter.Priority"
+                    asp-items="Html.GetEnumSelectList<TaskFlow.Web.Models.Enum.ProjectPriority>()"
                     class="form-select">
                 <option value="">All Priorities</option>
-
-                @foreach (var priority in Enum.GetValues<TaskFlow.Web.Models.Enum.ProjectPriority>())
-                {
-                    <option value="@priority"
-                            selected="@(Context.Request.Query["priority"] == priority.ToString())">
-                        @priority
-                    </option>
-                }
             </select>
         </div>
         <div class="col-md-3">
-            <select name="status"
+            <select asp-for="Filter.Status"
+                    asp-items="Html.GetEnumSelectList<TaskFlow.Web.Models.Enum.ProjectStatus>()"
                     class="form-select">
                 <option value="">All Statuses</option>
-                @foreach (var status in Enum.GetValues<TaskFlow.Web.Models.Enum.ProjectStatus>())
-                {
-                    <option value="@status"
-                            selected="@(Context.Request.Query["status"] == status.ToString())">
-                        @status
-                    </option>
-                }
             </select>
         </div>
 
@@ -60,7 +45,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var project in Model)
+        @foreach (var project in Model.Projects)
         {
             <tr>
                 <td>@project.ProjectName</td>
