@@ -27,6 +27,19 @@
                 }
             </select>
         </div>
+        <div class="col-md-3">
+            <select name="status"
+                    class="form-select">
+                <option value="">All Statuses</option>
+                @foreach (var status in Enum.GetValues<TaskFlow.Web.Models.Enum.ProjectStatus>())
+                {
+                    <option value="@status"
+                            selected="@(Context.Request.Query["status"] == status.ToString())">
+                        @status
+                    </option>
+                }
+            </select>
+        </div>
 
         <div class="col-md-2">
             <button type="submit" class="btn btn-primary">Search</button>

@@ -21,9 +21,9 @@ namespace TaskFlow.Web.Controllers
         /// Displays a list of all projects.
         /// </summary>
         /// <returns></returns>
-        public async Task<IActionResult> Index(string? searchTerm = null, string? priority = null)
+        public async Task<IActionResult> Index(ProjectFilterViewModel filter)
         {                     
-            var model = await _projectService.GetAllAsync(searchTerm, priority);
+            var model = await _projectService.GetAllAsync(filter);
             return View(model);
         }
 
