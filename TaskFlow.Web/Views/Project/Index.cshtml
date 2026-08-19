@@ -3,6 +3,38 @@
 
 <h1>Project List</h1>
 
+<form asp-action="Index" method="get">
+    <div class="row">
+        <div class="col-md-3">
+            <input type="text"
+                   name="searchTerm"
+                   value="@Context.Request.Query["searchTerm"]"
+                   placeholder="Search projects..."
+                   class="form-control" />
+        </div>
+
+        <div class="col-md-3">
+            <select name="priority"
+                    class="form-select">
+                <option value="">All Priorities</option>
+
+                @foreach (var priority in Enum.GetValues<TaskFlow.Web.Models.Enum.ProjectPriority>())
+                {
+                    <option value="@priority"
+                            selected="@(Context.Request.Query["priority"] == priority.ToString())">
+                        @priority
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+    
 <table class="table">
     <thead>
         <tr>
@@ -38,7 +70,7 @@
                        asp-route-id="@project.Id"
                        class="btn btn-info">
                         Details
-                    </a>                    
+                    </a>
                 </td>
             </tr>
         }

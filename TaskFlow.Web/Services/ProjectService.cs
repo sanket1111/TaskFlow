@@ -52,13 +52,18 @@ namespace TaskFlow.Web.Services
             return true;
         }
 
-        public async Task<List<ProjectListViewModel>> GetAllAsync(string? searchTerm = null)
+        public async Task<List<ProjectListViewModel>> GetAllAsync(string? searchTerm = null, string? priority = null)
         {
             var query = _context.Projects.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 query = query.Where(p => p.ProjectName.Contains(searchTerm));
+            }
+
+            if (!string.IsNullOrWhiteSpace(priority))
+            {
+                query = query.Where(p => p.Priority.ToString() == priority);
             }
 
             return await query.Select(p => new ProjectListViewModel

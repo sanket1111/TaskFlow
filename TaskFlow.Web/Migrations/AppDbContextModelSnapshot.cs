@@ -71,7 +71,7 @@ namespace TaskFlow.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("TaskFlow.Web.Models.Project.TaskItem", b =>
@@ -123,7 +123,7 @@ namespace TaskFlow.Web.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("TaskItems");
+                    b.ToTable("TaskItems", (string)null);
                 });
 
             modelBuilder.Entity("TaskFlow.Web.Models.Project.TaskItem", b =>
