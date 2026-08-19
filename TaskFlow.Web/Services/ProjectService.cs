@@ -56,7 +56,7 @@ namespace TaskFlow.Web.Services
         {
             var query = _context.Projects.AsQueryable();
 
-            if (!string.IsNullOrEmpty(searchTerm))
+            if (!string.IsNullOrWhiteSpace(searchTerm))
             {
                 query = query.Where(p => p.ProjectName.Contains(searchTerm));
             }
