@@ -10,10 +10,12 @@ namespace TaskFlow.Web.Controllers
     public class ProjectController : Controller
     {
         private readonly IProjectService _projectService;
+        private readonly ILogger<ProjectController> _logger;
 
-        public ProjectController(IProjectService projectService)
+        public ProjectController(IProjectService projectService, ILogger<ProjectController> logger)
         {
             _projectService = projectService;
+            _logger = logger;
         }
         /// <summary>
         /// Displays a list of all projects.
@@ -21,6 +23,13 @@ namespace TaskFlow.Web.Controllers
         /// <returns></returns>
         public async Task<IActionResult> Index()
         {
+            _logger.LogTrace("This is a Trace message.");
+            _logger.LogDebug("This is a Debug message.");
+            _logger.LogInformation("This is an Information message.");
+            _logger.LogWarning("This is a Warning message.");
+            _logger.LogError("This is an Error message.");
+            _logger.LogCritical("This is a Critical message.");
+          //  _logger.LogInformation("Project Index action was called.");
             var model = await _projectService.GetAllAsync();
             return View(model);
         }
