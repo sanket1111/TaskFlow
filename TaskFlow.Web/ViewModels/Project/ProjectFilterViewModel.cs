@@ -7,5 +7,7 @@ namespace TaskFlow.Web.ViewModels.Project
         public string? SearchTerm { get; set; }
         public ProjectPriority? Priority { get; set; }
         public ProjectStatus? Status { get; set; }
+        public ProjectSortField? SortBy { get; set; }
+        public bool SortDescending { get; set; } = true;
     }
 }

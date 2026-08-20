@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TaskFlow.Web.Data;
+using TaskFlow.Web.Models.Enum;
 using TaskFlow.Web.Models.Project;
 using TaskFlow.Web.Services.Interfaces;
 using TaskFlow.Web.ViewModels.Project;
@@ -71,6 +72,28 @@ namespace TaskFlow.Web.Services
                 query = query.Where(p => p.Status == filter.Status);
             }
 
+            switch (filter.SortBy)
+            {
+                case ProjectSortField.ProjectName:
+                    query = filter.SortDescending ? query.OrderByDescending(p => p.ProjectName) : query.OrderBy(p => p.ProjectName);
+                    break;
+                case ProjectSortField.Status:
+                    query = filter.SortDescending ? query.OrderByDescending(p => p.Status) : query.OrderBy(p => p.Status);
+                    break;
+                case ProjectSortField.Priority:
+                    query = filter.SortDescending ? query.OrderByDescending(p => p.Priority) : query.OrderBy(p => p.Priority);
+                    break;
+                case ProjectSortField.StartDate:
+                    query = filter.SortDescending ? query.OrderByDescending(p => p.StartDate) : query.OrderBy(p => p.StartDate);
+                    break;
+                case ProjectSortField.EndDate:
+                    query = filter.SortDescending ? query.OrderByDescending(p => p.EndDate) : query.OrderBy(p => p.EndDate);
+                    break;
+                default:
+                    query = query.OrderBy(p => p.ProjectName);
+                    break;
+            }
+
             return await query.Select(p => new ProjectListViewModel
             {
                 Id = p.Id,
@@ -102,11 +125,11 @@ namespace TaskFlow.Web.Services
 
         public async Task<ProjectDetailsViewModel?> GetDetailsAsync(int id)
         {
-            var projectDeatils =  _context.Projects
+            var projectDeatils = _context.Projects
                                          .Where(p => p.Id == id)
                                          .Select(p => new ProjectDetailsViewModel
                                          {
-                                             Id=p.Id,
+                                             Id = p.Id,
                                              ProjectName = p.ProjectName,
                                              Description = p.Description,
                                              Status = p.Status,
@@ -120,7 +143,7 @@ namespace TaskFlow.Web.Services
                                                  Description = t.Description,
                                                  Status = t.Status,
                                                  Priority = t.Priority,
-                                                 DueDate = t.DueDate,                                                 
+                                                 DueDate = t.DueDate,
                                              }).ToList()
                                          });
             return await projectDeatils.FirstOrDefaultAsync();

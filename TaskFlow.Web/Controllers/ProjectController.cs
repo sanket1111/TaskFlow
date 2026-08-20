@@ -26,7 +26,7 @@ namespace TaskFlow.Web.Controllers
             var projects = await _projectService.GetAllAsync(filter);
             ProjectListPageViewModel model = new ProjectListPageViewModel
             {
-                Projects = projects.ToList(),
+                Projects = projects,
                 Filter = filter
             };
             

@@ -25,7 +25,21 @@
                 <option value="">All Statuses</option>
             </select>
         </div>
-
+        <div class="col-md-3">
+            <select asp-for="Filter.SortBy"
+                    asp-items="Html.GetEnumSelectList<TaskFlow.Web.Models.Enum.ProjectSortField>()"
+                    class="form-select">
+                <option value="">Sort By</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <div class="form-check">
+                <input asp-for="Filter.SortDescending" class="form-check-input" />
+                <label asp-for="Filter.SortDescending" class="form-check-label">
+                    Sort Descending
+                </label>
+            </div>
+        </div>
         <div class="col-md-2">
             <button type="submit" class="btn btn-primary">Search</button>
         </div>
