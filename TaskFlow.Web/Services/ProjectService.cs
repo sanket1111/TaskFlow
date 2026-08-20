@@ -95,15 +95,18 @@ namespace TaskFlow.Web.Services
             }
 
             var totalCount = await query.CountAsync();
-            var projects = await query.Select(p => new ProjectListViewModel
-            {
-                Id = p.Id,
-                ProjectName = p.ProjectName,
-                Status = p.Status,
-                Priority = p.Priority,
-                StartDate = p.StartDate,
-                EndDate = p.EndDate
-            }).ToListAsync();
+            var projects = await query
+                .Skip((filter.PageNumber - 1) * filter.PageSize)
+                .Take(filter.PageSize)
+                .Select(p => new ProjectListViewModel
+                {
+                    Id = p.Id,
+                    ProjectName = p.ProjectName,
+                    Status = p.Status,
+                    Priority = p.Priority,
+                    StartDate = p.StartDate,
+                    EndDate = p.EndDate
+                }).ToListAsync();
 
             return new ProjectListResultViewModel
             {
