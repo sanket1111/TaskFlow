@@ -9,5 +9,7 @@ namespace TaskFlow.Web.ViewModels.Project
         public ProjectStatus? Status { get; set; }
         public ProjectSortField? SortBy { get; set; }
         public bool SortDescending { get; set; } = true;
+        public int PageNumber { get; set; } = 1;
+        public int PageSize { get; set; } = 10;
     }
 }

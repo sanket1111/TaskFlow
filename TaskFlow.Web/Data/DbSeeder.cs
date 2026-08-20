@@ -7,7 +7,7 @@ namespace TaskFlow.Web.Data
     {
         public static async Task SeedProjectsAsync(AppDbContext context)
         {
-            if (context.Projects.Count() > 100)
+            if (context.Projects.Count() >= 100)
             {
                 return;
             }
