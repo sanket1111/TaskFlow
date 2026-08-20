@@ -53,7 +53,7 @@ namespace TaskFlow.Web.Services
             return true;
         }
 
-        public async Task<List<ProjectListViewModel>> GetAllAsync(ProjectFilterViewModel filter)
+        public async Task<ProjectListResultViewModel> GetAllAsync(ProjectFilterViewModel filter)
         {
             var query = _context.Projects.AsQueryable();
 
@@ -94,7 +94,8 @@ namespace TaskFlow.Web.Services
                     break;
             }
 
-            return await query.Select(p => new ProjectListViewModel
+            var totalCount = await query.CountAsync();
+            var projects = await query.Select(p => new ProjectListViewModel
             {
                 Id = p.Id,
                 ProjectName = p.ProjectName,
@@ -104,6 +105,11 @@ namespace TaskFlow.Web.Services
                 EndDate = p.EndDate
             }).ToListAsync();
 
+            return new ProjectListResultViewModel
+            {
+                Projects = projects,
+                TotalCount = totalCount
+            };
         }
 
         public Task<ProjectEditViewModel?> GetByIdAsync(int id)
