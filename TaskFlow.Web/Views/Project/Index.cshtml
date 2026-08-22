@@ -1,31 +1,38 @@
 ﻿@model ProjectListPageViewModel
 
+@{
+    var totalPages = (int)Math.Ceiling(
+        (double)Model.TotalCount / Model.Filter.PageSize);
+
+    var startPage = Math.Max(1, Model.Filter.PageNumber - 2);
+    var endPage = Math.Min(totalPages, Model.Filter.PageNumber + 2);
+}
 
 <h1>Project List</h1>
 
 <form asp-action="Index" method="get">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <input asp-for="Filter.SearchTerm"
                    placeholder="Search projects..."
                    class="form-control" />
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-2">
             <select asp-for="Filter.Priority"
                     asp-items="Html.GetEnumSelectList<TaskFlow.Web.Models.Enum.ProjectPriority>()"
                     class="form-select">
                 <option value="">All Priorities</option>
             </select>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <select asp-for="Filter.Status"
                     asp-items="Html.GetEnumSelectList<TaskFlow.Web.Models.Enum.ProjectStatus>()"
                     class="form-select">
                 <option value="">All Statuses</option>
             </select>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <select asp-for="Filter.SortBy"
                     asp-items="Html.GetEnumSelectList<TaskFlow.Web.Models.Enum.ProjectSortField>()"
                     class="form-select">
@@ -87,4 +94,121 @@
             </tr>
         }
     </tbody>
-</table>    
+</table>
+@if (totalPages > 1)
+{
+    <nav aria-label="Project pagination">
+        <ul class="pagination">
+
+            <!-- Previous -->
+            <li class="page-item @(Model.Filter.PageNumber <= 1 ? "disabled" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-PageNumber="@(Model.Filter.PageNumber - 1)"
+                   asp-route-PageSize="@Model.Filter.PageSize"
+                   asp-route-SearchTerm="@Model.Filter.SearchTerm"
+                   asp-route-Priority="@Model.Filter.Priority"
+                   asp-route-Status="@Model.Filter.Status"
+                   asp-route-SortBy="@Model.Filter.SortBy"
+                   asp-route-SortDescending="@Model.Filter.SortDescending">
+                    Previous
+                </a>
+            </li>
+
+            <!-- First Page -->
+            @if (startPage > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-PageNumber="1"
+                       asp-route-PageSize="@Model.Filter.PageSize"
+                       asp-route-SearchTerm="@Model.Filter.SearchTerm"
+                       asp-route-Priority="@Model.Filter.Priority"
+                       asp-route-Status="@Model.Filter.Status"
+                       asp-route-SortBy="@Model.Filter.SortBy"
+                       asp-route-SortDescending="@Model.Filter.SortDescending">
+                        1
+                    </a>
+                </li>
+
+                @if (startPage > 2)
+                {
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                }
+            }
+
+            <!-- Visible Page Numbers -->
+            @for (int pageNumber = startPage; pageNumber <= endPage; pageNumber++)
+            {
+                if (pageNumber == Model.Filter.PageNumber)
+                {
+                    <li class="page-item active">
+                        <span class="page-link">
+                            @pageNumber
+                        </span>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link"
+                           asp-action="Index"
+                           asp-route-PageNumber="@pageNumber"
+                           asp-route-PageSize="@Model.Filter.PageSize"
+                           asp-route-SearchTerm="@Model.Filter.SearchTerm"
+                           asp-route-Priority="@Model.Filter.Priority"
+                           asp-route-Status="@Model.Filter.Status"
+                           asp-route-SortBy="@Model.Filter.SortBy"
+                           asp-route-SortDescending="@Model.Filter.SortDescending">
+                            @pageNumber
+                        </a>
+                    </li>
+                }
+            }
+
+            <!-- Last Page -->
+            @if (endPage < totalPages)
+            {
+                @if (endPage < totalPages - 1)
+                {
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                }
+
+                <li class="page-item">
+                    <a class="page-link"
+                       asp-action="Index"
+                       asp-route-PageNumber="@totalPages"
+                       asp-route-PageSize="@Model.Filter.PageSize"
+                       asp-route-SearchTerm="@Model.Filter.SearchTerm"
+                       asp-route-Priority="@Model.Filter.Priority"
+                       asp-route-Status="@Model.Filter.Status"
+                       asp-route-SortBy="@Model.Filter.SortBy"
+                       asp-route-SortDescending="@Model.Filter.SortDescending">
+                        @totalPages
+                    </a>
+                </li>
+            }
+
+            <!-- Next -->
+            <li class="page-item @(Model.Filter.PageNumber >= totalPages ? "disabled" : "")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-PageNumber="@(Model.Filter.PageNumber + 1)"
+                   asp-route-PageSize="@Model.Filter.PageSize"
+                   asp-route-SearchTerm="@Model.Filter.SearchTerm"
+                   asp-route-Priority="@Model.Filter.Priority"
+                   asp-route-Status="@Model.Filter.Status"
+                   asp-route-SortBy="@Model.Filter.SortBy"
+                   asp-route-SortDescending="@Model.Filter.SortDescending">
+                    Next
+                </a>
+            </li>
+
+        </ul>
+    </nav>
+}
