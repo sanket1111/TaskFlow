@@ -13,14 +13,16 @@ namespace TaskFlow.Web.ViewModels.Project
 
         [Required(ErrorMessage = "Start date is required")]
         [FutureDate(ErrorMessage = "Start date should be current date or future date")]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }=null;
         public DateTime? EndDate { get; set; } = null;
         public ProjectStatus Status { get; set; } = ProjectStatus.New;
         public ProjectPriority Priority { get; set; } = ProjectPriority.Medium;
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if(EndDate.HasValue && EndDate.Value < StartDate)
+            if(StartDate.HasValue
+                && EndDate.HasValue 
+                && EndDate.Value < StartDate)
             {
                 yield return new ValidationResult(
                     "End date cannot be earlier than start date",

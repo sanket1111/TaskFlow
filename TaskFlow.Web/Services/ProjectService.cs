@@ -104,8 +104,8 @@ namespace TaskFlow.Web.Services
                     ProjectName = p.ProjectName,
                     Status = p.Status,
                     Priority = p.Priority,
-                    StartDate = p.StartDate,
-                    EndDate = p.EndDate
+                    StartDate = Convert.ToDateTime(p.StartDate).Date,
+                    EndDate = Convert.ToDateTime(p.EndDate).Date
                 }).ToListAsync();
 
             return new ProjectListResultViewModel
@@ -126,8 +126,8 @@ namespace TaskFlow.Web.Services
                     Description = p.Description,
                     Status = p.Status,
                     Priority = p.Priority,
-                    StartDate = p.StartDate,
-                    EndDate = p.EndDate
+                    StartDate = Convert.ToDateTime(p.StartDate).Date,
+                    EndDate = Convert.ToDateTime(p.EndDate).Date
                 })
                 .FirstOrDefaultAsync();
         }
@@ -143,8 +143,8 @@ namespace TaskFlow.Web.Services
                                              Description = p.Description,
                                              Status = p.Status,
                                              Priority = p.Priority,
-                                             StartDate = p.StartDate,
-                                             EndDate = p.EndDate,
+                                             StartDate = Convert.ToDateTime(p.StartDate).Date,
+                                             EndDate = Convert.ToDateTime(p.EndDate).Date,
                                              TaskItems = p.TaskItems.Select(t => new TaskListViewModel
                                              {
                                                  Id = t.Id,
