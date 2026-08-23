@@ -158,15 +158,14 @@
                             <td>
                                 <div class="d-flex gap-2">
                                     <a href="@Url.Action("Edit", new { id = project.Id })" class="btn btn-primary">Edit</a>
-                                    <form asp-action="Delete"
-                                          asp-route-id="@project.Id"
-                                          method="post"
-                                          style="display:inline">
-
-                                        <button type="submit" class="btn btn-danger">
-                                            Delete
-                                        </button>
-                                    </form>
+                                    <button type="button"
+                                            class="btn btn-danger"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteProjectModal"
+                                            data-project-id="@project.Id"
+                                            data-project-name="@project.ProjectName">
+                                        Delete
+                                    </button>
                                     <a asp-action="Details"
                                        asp-route-id="@project.Id"
                                        class="btn btn-info">
@@ -308,3 +307,64 @@
             }
         </div>
     </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade"
+         id="deleteProjectModal"
+         tabindex="-1"
+         aria-labelledby="deleteProjectModalLabel"
+         aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title"
+                        id="deleteProjectModalLabel">
+                        Confirm Delete
+                    </h5>
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    Are you sure you want to delete
+                    <strong id="deleteProjectName"></strong>?
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <form asp-action="Delete"
+                          method="post"
+                          id="deleteProjectForm">
+
+                        <input type="hidden"
+                               name="id"
+                               id="deleteProjectId" />
+
+                        <button type="submit"
+                                class="btn btn-danger">
+                            Delete
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    @section Scripts {
+        <script src="~/js/project-delete.js"></script>
+    }

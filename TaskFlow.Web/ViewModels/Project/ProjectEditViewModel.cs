@@ -34,7 +34,7 @@ namespace TaskFlow.Web.ViewModels.Project
 
                 yield return new ValidationResult(
                     "End date cannot be earlier than start date",
-                    new[] { nameof(validationField) });
+                    new[] { validationField });
             }
         }
     }
