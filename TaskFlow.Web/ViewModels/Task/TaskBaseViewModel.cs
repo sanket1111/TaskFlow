@@ -19,7 +19,7 @@ namespace TaskFlow.Web.ViewModels.Task
         public int ProjectId { get; set; }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if(DueDate < DateTime.Now.Date)
+            if(DueDate.HasValue && DueDate.Value < DateTime.Now.Date)
             {
                 yield return new ValidationResult(
                     "Due date should be current date or future date",
