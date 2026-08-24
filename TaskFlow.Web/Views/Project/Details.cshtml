@@ -29,30 +29,48 @@
                 <dd class="col-sm-10">
                     @if (@Model.Status == @ProjectStatus.InProgress)
                     {
-                        <span>In Progress</span>
+                        <span class="badge text-bg-primary">In Progress</span>
+                    }
+                    else if (@Model.Status == @ProjectStatus.Completed)
+                    {
+                        <span class="badge text-bg-success">@Model.Status</span>
+                    }
+                    else if (Model.Status == @ProjectStatus.Canceled)
+                    {
+                        <span class="badge text-bg-danger">@Model.Status</span>
                     }
                     else
                     {
-                        @Model.Status
+                        <span class="badge text-bg-secondary">
+                            @Model.Status
+                        </span>
                     }
                 </dd>
                 <dt class="col-sm-2">Priority</dt>
-                <dd class="col-sm-10">@Model.Priority</dd>
+                <dd class="col-sm-10">@if (Model.Priority == ProjectPriority.Critical)
+                {
+                    <span class="badge text-bg-dark">@Model.Priority</span>
+                }
+                else if(Model.Priority == ProjectPriority.Medium)
+                {
+                        <span class="badge text-bg-warning">@Model.Priority</span>
+                }
+                else if(Model.Priority == ProjectPriority.High)
+                {
+                        <span class="badge text-bg-danger">@Model.Priority</span>
+                }
+                else if(Model.Priority == ProjectPriority.Low)
+                {
+                        <span class="badge text-bg-success">@Model.Priority</span>
+                }
+                </dd>
 
                 <dt class="col-sm-2">Start Date</dt>
-                <dd class="col-sm-10">@Model.StartDate.ToString("dd-MM-yyyy")</dd>
+                <dd class="col-sm-10">@Model.StartDate.ToString("dd-MMM-yyyy")</dd>
 
                 <dt class="col-sm-2">End Date</dt>
-                <dd class="col-sm-10">@(Model.EndDate?.ToString("dd-MM-yyyy") ?? "-")</dd>
-            </dl>
-            <dl>
-                <a asp-controller="TaskItem"
-                   asp-action="Create"
-                   asp-route-projectId="@Model.Id"
-                   class="btn btn-primary">
-                    Create Task
-                </a>
-            </dl>
+                <dd class="col-sm-10">@(Model.EndDate?.ToString("dd-MMM-yyyy") ?? "-")</dd>
+            </dl>            
         </div>
     </div>
 
@@ -78,7 +96,7 @@
                             <th>Status</th>
                             <th>Priority</th>
                             <th>Due Date</th>
-                            <th></th>
+                            <th>Action</th>
                         </tr>
                     </thead>
 
@@ -89,7 +107,7 @@
                                 <td>@task.TaskTitle</td>
                                 <td>@task.Status</td>
                                 <td>@task.Priority</td>
-                                <td>@task.DueDate.ToShortDateString()</td>
+                                <td>@task.DueDate.ToString("dd-MMM-yyyy")</td>
                                 <td>
                                     <a asp-controller="TaskItem"
                                        asp-action="Edit"
