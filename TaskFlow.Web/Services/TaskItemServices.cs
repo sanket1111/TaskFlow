@@ -23,7 +23,7 @@ namespace TaskFlow.Web.Services
                 Description = model.Description,
                 Status = model.Status,
                 Priority = model.Priority,
-                DueDate = model.DueDate,
+                DueDate = model.DueDate ?? DateTime.Now.Date,
                 ProjectId = model.ProjectId
             };
 
@@ -92,7 +92,7 @@ namespace TaskFlow.Web.Services
             task.Description = model.Description;
             task.Status = model.Status;
             task.Priority = model.Priority;
-            task.DueDate = model.DueDate;
+            task.DueDate = model.DueDate ?? DateTime.Now.Date;
 
             await _context.SaveChangesAsync();
 

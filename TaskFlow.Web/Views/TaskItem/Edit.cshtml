@@ -1,15 +1,16 @@
 ﻿@model TaskFlow.Web.ViewModels.Task.TaskEditViewModel
 
 <h2>Edit Task</h2>
-
 <form asp-action="Edit" method="post">
     <div class="mb-3">
         <label asp-for="TaskTitle"></label>
         <input asp-for="TaskTitle" class="form-control" />
+        <span asp-validation-for="TaskTitle" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Description"></label>
         <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Status" class="form-label"></label>
@@ -17,6 +18,7 @@
                 asp-items="Html.GetEnumSelectList<TaskFlow.Web.Models.Enum.TaskStatus>()"
                 class="form-select">
         </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="Priority" class="form-label"></label>
@@ -24,10 +26,12 @@
                 asp-items="Html.GetEnumSelectList<TaskFlow.Web.Models.Enum.TaskPriority>()"
                 class="form-select">
         </select>
+        <span asp-validation-for="Priority" class="text-danger"></span>
     </div>
     <div class="mb-3">
         <label asp-for="DueDate"></label>
         <input asp-for="DueDate" type="date" class="form-control" />
+        <span asp-validation-for="DueDate" class="text-danger"></span>
     </div>
     <input asp-for="Id" type="hidden" />
     <input asp-for="ProjectId" type="hidden" />
