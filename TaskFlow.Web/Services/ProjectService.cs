@@ -144,7 +144,9 @@ namespace TaskFlow.Web.Services
                                              Status = p.Status,
                                              Priority = p.Priority,
                                              StartDate = Convert.ToDateTime(p.StartDate).Date,
-                                             EndDate = Convert.ToDateTime(p.EndDate).Date,
+                                             EndDate = p.EndDate.HasValue
+                                                       ? p.EndDate.Value.Date
+                                                       : null,
                                              TaskItems = p.TaskItems.Select(t => new TaskListViewModel
                                              {
                                                  Id = t.Id,

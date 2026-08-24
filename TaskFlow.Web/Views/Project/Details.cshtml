@@ -27,7 +27,7 @@
 
                 <dt class="col-sm-2">Status</dt>
                 <dd class="col-sm-10">
-                    @if (@Model.Status == @ProjectStatus.InProgress)
+                    @if (@Model.Status == ProjectStatus.InProgress)
                     {
                         <span class="badge text-bg-primary">In Progress</span>
                     }
@@ -47,22 +47,23 @@
                     }
                 </dd>
                 <dt class="col-sm-2">Priority</dt>
-                <dd class="col-sm-10">@if (Model.Priority == ProjectPriority.Critical)
-                {
-                    <span class="badge text-bg-dark">@Model.Priority</span>
-                }
-                else if(Model.Priority == ProjectPriority.Medium)
-                {
+                <dd class="col-sm-10">
+                    @if (Model.Priority == ProjectPriority.Critical)
+                    {
+                        <span class="badge text-bg-dark">@Model.Priority</span>
+                    }
+                    else if (Model.Priority == ProjectPriority.Medium)
+                    {
                         <span class="badge text-bg-warning">@Model.Priority</span>
-                }
-                else if(Model.Priority == ProjectPriority.High)
-                {
+                    }
+                    else if (Model.Priority == ProjectPriority.High)
+                    {
                         <span class="badge text-bg-danger">@Model.Priority</span>
-                }
-                else if(Model.Priority == ProjectPriority.Low)
-                {
+                    }
+                    else if (Model.Priority == ProjectPriority.Low)
+                    {
                         <span class="badge text-bg-success">@Model.Priority</span>
-                }
+                    }
                 </dd>
 
                 <dt class="col-sm-2">Start Date</dt>
@@ -70,7 +71,7 @@
 
                 <dt class="col-sm-2">End Date</dt>
                 <dd class="col-sm-10">@(Model.EndDate?.ToString("dd-MMM-yyyy") ?? "-")</dd>
-            </dl>            
+            </dl>
         </div>
     </div>
 
@@ -89,47 +90,49 @@
         <div class="card-body">
             @if (Model.TaskItems.Any())
             {
-                <table class="table table-responsive table-striped">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Task</th>
-                            <th>Status</th>
-                            <th>Priority</th>
-                            <th>Due Date</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @foreach (var task in Model.TaskItems)
-                        {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="table-light">
                             <tr>
-                                <td>@task.TaskTitle</td>
-                                <td>@task.Status</td>
-                                <td>@task.Priority</td>
-                                <td>@task.DueDate.ToString("dd-MMM-yyyy")</td>
-                                <td>
-                                    <a asp-controller="TaskItem"
-                                       asp-action="Edit"
-                                       asp-route-id="@task.Id"
-                                       class="btn btn-primary">
-                                        Edit Task
-                                    </a>
-                                    <form asp-controller="TaskItem" asp-action="Delete"
-                                          asp-route-id="@task.Id"
-                                          method="post"
-                                          style="display:inline">
-
-                                        <button type="submit" class="btn btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this task?');">
-                                            Delete
-                                        </button>
-                                    </form>
-                                </td>
+                                <th>Task</th>
+                                <th>Status</th>
+                                <th>Priority</th>
+                                <th>Due Date</th>
+                                <th>Action</th>
                             </tr>
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var task in Model.TaskItems)
+                            {
+                                <tr>
+                                    <td>@task.TaskTitle</td>
+                                    <td>@task.Status</td>
+                                    <td>@task.Priority</td>
+                                    <td>@task.DueDate.ToString("dd-MMM-yyyy")</td>
+                                    <td>
+                                        <a asp-controller="TaskItem"
+                                           asp-action="Edit"
+                                           asp-route-id="@task.Id"
+                                           class="btn btn-primary">
+                                            Edit Task
+                                        </a>
+                                        <form asp-controller="TaskItem" asp-action="Delete"
+                                              asp-route-id="@task.Id"
+                                              method="post"
+                                              style="display:inline">
+
+                                            <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('Are you sure you want to delete this task?');">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
             }
             else
             {

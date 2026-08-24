@@ -1,5 +1,4 @@
 ﻿using TaskFlow.Web.Models.Enum;
-using TaskFlow.Web.Models.Project;
 using TaskFlow.Web.ViewModels.Task;
 
 namespace TaskFlow.Web.ViewModels.Project
