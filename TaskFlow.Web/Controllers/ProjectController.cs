@@ -61,6 +61,8 @@ namespace TaskFlow.Web.Controllers
 
             await _projectService.CreateAsync(model);
 
+            TempData["SuccessMessage"] = "Project created successfully.";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -88,6 +90,8 @@ namespace TaskFlow.Web.Controllers
             {
                 return NotFound();
             }
+            TempData["UpdateMessage"] = "Project updated successfully.";
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -99,6 +103,7 @@ namespace TaskFlow.Web.Controllers
             {
                 return NotFound();
             }
+            TempData["DeleteMessage"] = "Project deleted successfully.";
             return RedirectToAction(nameof(Index));
         }
 

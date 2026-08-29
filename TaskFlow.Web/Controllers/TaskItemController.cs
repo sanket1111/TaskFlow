@@ -38,6 +38,7 @@ namespace TaskFlow.Web.Controllers
             }
             await _taskItemServices.CreateAsync(model);
 
+            TempData["SuccessMessage"] = "Task created successfully.";  
             return RedirectToAction("Details", "Project", new { id = model.ProjectId });
         }
 
@@ -64,6 +65,7 @@ namespace TaskFlow.Web.Controllers
             {
                 return NotFound();
             }
+            TempData["UpdateMessage"] = "Task updated successfully.";
             return RedirectToAction("Details", "Project", new { id = model.ProjectId });
         } 
 
@@ -80,6 +82,7 @@ namespace TaskFlow.Web.Controllers
             {
                 return NotFound();
             }
+            TempData["DeleteMessage"] = "Task deleted successfully.";
             return RedirectToAction("Details", "Project", new { id = model.ProjectId });
         }
     }
