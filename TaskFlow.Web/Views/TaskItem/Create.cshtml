@@ -3,44 +3,62 @@
 @model TaskCreateViewModel
 
 
-<h2>Create Task</h2>
+<div class="container">
 
-<form asp-action="Create" method="post">
-    <div class="mb-3">
-        <label asp-for="TaskTitle"></label>
-        <input asp-for="TaskTitle" class="form-control" />
-        <span asp-validation-for="TaskTitle" class="text-danger"></span>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Create Task</h2>
     </div>
-    <div class="mb-3">
-        <label asp-for="Description"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+    
+
+    <div class="card">
+        <div class="card-header">Task Details</div>
+        <div class="card-body">
+            <form asp-action="Create" method="post">
+                <div class="mb-3">
+                    <label asp-for="TaskTitle"></label>
+                    <input asp-for="TaskTitle" class="form-control" />
+                    <span asp-validation-for="TaskTitle" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="mb-3 col-md-6">
+                        <label asp-for="Status" class="form-label"></label>
+                        <select asp-for="Status"
+                                asp-items="Html.GetEnumSelectList<TaskStatus>()"
+                                class="form-select">
+                        </select>
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                        <label asp-for="Priority" class="form-label"></label>
+                        <select asp-for="Priority"
+                                asp-items="Html.GetEnumSelectList<TaskPriority>()"
+                                class="form-select">
+                        </select>
+                        <span asp-validation-for="Priority" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="mb-3 col-md-6">
+                    <label asp-for="DueDate"></label>
+                    <input asp-for="DueDate" type="date" class="form-control" />
+                    <span asp-validation-for="DueDate" class="text-danger"></span>
+                </div>
+                <div>
+                    <input asp-for="ProjectId" type="hidden" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Create Task</button>
+                    <a asp-action="Index" asp-controller="Project" class="btn btn-secondary">
+                        Cancel
+                    </a>
+                </div>
+                
+            </form>
+        </div>
     </div>
-    <div class="mb-3">
-        <label asp-for="Status" class="form-label"></label>
-        <select asp-for="Status"
-                asp-items="Html.GetEnumSelectList<TaskStatus>()"
-                class="form-select">          
-        </select>
-        <span asp-validation-for="Status" class="text-danger"></span>
-     </div>
-     <div class="mb-3">
-         <label asp-for="Priority" class="form-label"></label>
-        <select asp-for="Priority"
-                asp-items="Html.GetEnumSelectList<TaskPriority>()"
-                class="form-select">
-        </select>
-        <span asp-validation-for="Priority" class="text-danger"></span>
-     </div>
-     <div class="mb-3">
-        <label asp-for="DueDate"></label>
-        <input asp-for="DueDate" type="date" class="form-control" />
-        <span asp-validation-for="DueDate" class="text-danger"></span>
-     </div>
-     <div>        
-        <input asp-for="ProjectId" type="hidden" class="form-control" />    
-     </div>
-     <div class="mb-3">
-        <button type="submit" class="btn btn-primary">Create</button>
-     </div>
-</form>
+</div>
