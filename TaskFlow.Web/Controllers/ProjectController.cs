@@ -24,14 +24,14 @@ namespace TaskFlow.Web.Controllers
         public async Task<IActionResult> Index(ProjectFilterViewModel filter)
         {
             var result = await _projectService.GetAllAsync(filter);
-
+            
             ProjectListPageViewModel model = new ProjectListPageViewModel
             {
                 Projects = result.Projects,
                 Filter = filter,
                 TotalCount = result.TotalCount
             };
-            
+
             return View(model);
         }
 
